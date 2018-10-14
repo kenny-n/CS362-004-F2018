@@ -92,10 +92,15 @@ int testInitializeGame(int numPlayers) {
 
     initializeGame(numPlayers, k, randSeed, &actualState);
 
-    printf ("Starting test.\n");
+    printf ("Starting test with %d players.\n", numPlayers);
 
-    if ((numPlayers < 2 || numPlayers > MAX_PLAYERS) && (initializeGame(numPlayers, k, randSeed, &actualState) != -1)) {
-        printf("TEST FAILED: incorrect number of players (%i) allowed", numPlayers);
+    int initGame = initializeGame(numPlayers, k, randSeed, &actualState);
+
+    if ((numPlayers < 2 || numPlayers > MAX_PLAYERS) && (initGame != -1)) {
+        printf("TEST FAILED: incorrect number of players (%i) allowed\n", numPlayers);
+        return 1;
+    } else if (initGame == -1) {
+        return 0;
     }
 
     int failFlag = 0;
@@ -103,36 +108,45 @@ int testInitializeGame(int numPlayers) {
     for (i = curse; i <= treasure_map; i++) {
         if (assertNotEqual(expectedState->supplyCount[i], actualState.supplyCount[i])) {
             failFlag = 1;
-            printf("TEST FAILED: incorrect number of card: %d", i);
+            printf("TEST FAILED: incorrect number of card: %d\n", i);
         }
     }
 
     for (i = 0; i < numPlayers; i++) {
-        for (j = 0; j < 3; j++) {
-            if (assertNotEqual(estate, actualState.deck[i][j])) {
-                failFlag = 1;
-                printf("TEST FAILED: estate card not found");
+        int estateCount = 0;
+        int copperCount = 0;
+        for (j = 0; j < 10; j++) {
+            if (estate == actualState.deck[i][j]) {
+                estateCount++;
+            } else if (copper == actualState.deck[i][j]) {
+                copperCount++;
             }
         }
-        for (j = 3; j < 10; j++) {
-            if (assertNotEqual(copper, actualState.deck[i][j])) {
-                failFlag = 1;
-                printf("TEST FAILED: copper card not found");
-            }
-        }
-        if (assertNotEqual(0, actualState.handCount[i])) {
+
+        if (assertNotEqual(3, estateCount)) {
             failFlag = 1;
-            printf("TEST FAILED: incorrect hand count");
+            printf("TEST FAILED: incorrect number of estate cards\n");
+        } else if (assertNotEqual(7, copperCount)) {
+            failFlag = 1;
+            printf("TEST FAILED: incorrect number of copper cards\n");
+        }
+
+        if (i == 0 && assertNotEqual(5, actualState.handCount[i])) {
+            failFlag = 1;
+            printf("TEST FAILED: incorrect hand count for player 1\n");
+        } else if (i != 0 && assertNotEqual(0, actualState.handCount[i])) {
+            failFlag = 1;
+            printf("TEST FAILED: incorrect hand count for player %d\n", i);
         } else if (assertNotEqual(0, actualState.discardCount[i])) {
             failFlag = 1;
-            printf("TEST FAILED: incorrect discard count");
+            printf("TEST FAILED: incorrect discard count\n");
         }
     }
 
     for (i = 0; i <= treasure_map; i++) {
         if (assertNotEqual(0, actualState.embargoTokens[i])) {
             failFlag = 1;
-            printf("TEST FAILED: incorrect number of card: %d", i);
+            printf("TEST FAILED: incorrect number of card: %d\n", i);
         }
     }
 
@@ -142,24 +156,24 @@ int testInitializeGame(int numPlayers) {
         assertNotEqual(1, actualState.numBuys) ||
         assertNotEqual(0, actualState.playedCardCount) ||
         assertNotEqual(0, actualState.whoseTurn) ||
-        assertNotEqual(0, actualState.handCount[actualState.whoseTurn])) {
+        assertNotEqual(5, actualState.handCount[actualState.whoseTurn])) {
         failFlag = 1;
-        printf("TEST FAILED: incorrect initialized stats");
+        printf("TEST FAILED: incorrect initialized stats\n");
     }
 
     return failFlag;
 }
 
 int main() {
-    int successFlag = 1;
+    int failFlag = 0;
 
-    successFlag = !testInitializeGame(1);
-    successFlag = !testInitializeGame(2);
-    successFlag = !testInitializeGame(3);
-    successFlag = !testInitializeGame(4);
-    successFlag = !testInitializeGame(MAX_PLAYERS + 1);
+    failFlag = testInitializeGame(1) || failFlag;
+    failFlag = testInitializeGame(2) || failFlag;
+    failFlag = testInitializeGame(3) || failFlag;
+    failFlag = testInitializeGame(4) || failFlag;
+    failFlag = testInitializeGame(MAX_PLAYERS + 1) || failFlag;
 
-    if (successFlag) {
-        printf("TEST SUCCESSFULLY COMPLETED");
+    if (!failFlag) {
+        printf("TEST SUCCESSFULLY COMPLETED\n");
     }
 }

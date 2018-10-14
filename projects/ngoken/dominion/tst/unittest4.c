@@ -38,9 +38,9 @@ int testWhoseTurn(int numPlayers) {
 
 int main() {
     if (testWhoseTurn(2)) {
-        printf("TEST FAILED: whoseTurn returned incorrect player");
+        printf("TEST FAILED: whoseTurn returned incorrect player\n");
         return 1;
     }
-    printf("TEST SUCCESSFULLY COMPLETED");
+    printf("TEST SUCCESSFULLY COMPLETED\n");
     return 0;
 }

@@ -21,19 +21,17 @@ int testKingdomCards()
     {
         if (actualCards[i] != expectedCards[i])
         {
-            printf("TEST FAILED");
             return 1;
         }
     }
-    printf("TEST SUCCESSFULLY COMPLETED");
     return 0;
 }
 
 int main() {
     if (testKingdomCards()) {
-        printf("TEST FAILED: kingdomCards failed");
+        printf("TEST FAILED: kingdomCards failed\n");
         return 1;
     }
-    printf("TEST SUCCESSFULLY COMPLETED");
+    printf("TEST SUCCESSFULLY COMPLETED\n");
     return 0;
 }

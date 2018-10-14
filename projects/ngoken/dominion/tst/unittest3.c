@@ -46,9 +46,9 @@ int testGetCost() {
 
 int main() {
     if (testGetCost()) {
-        printf("TEST FAILED: getCost returned incorrect value");
+        printf("TEST FAILED: getCost returned incorrect value\n");
         return 1;
     }
-    printf("TEST SUCCESSFULLY COMPLETED");
+    printf("TEST SUCCESSFULLY COMPLETED\n");
     return 0;
 }
