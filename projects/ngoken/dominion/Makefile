@@ -34,6 +34,9 @@ unittest3:
 unittest4:
 	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c tst/unittest4.c rngs.c -o unittest4 -lm -g
 
+cardtest1:
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c tst/cardtest1.c rngs.c -o cardtest1 -lm -g
+
 unittestresults.out: unittest1 unittest2 unittest3 unittest4
 	./unittest1 &> unittestresults.out
 	./unittest2 >> unittestresults.out
@@ -64,4 +67,4 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -rf *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest*
+	rm -rf *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest* cardtest*

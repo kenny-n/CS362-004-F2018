@@ -1,35 +1,93 @@
 //
 // Created by Kenny Ngo on 10/13/18.
 //
-#include "dominion.h"
-#include "dominion_helpers.h"
-#include "rngs.h"
+#include "../dominion.h"
+#include "../dominion_helpers.h"
+#include "../rngs.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory.h>
 
-int testAdventurer()
-{
-    int card = adventurer;
-    int choice1 = 0;
-    int choice2 = 0;
-    int choice3 = 0;
-    struct gameState *state = newGame();
-    int handPos = 0;
-    int *bonus = 0;
-
-    cardEffect(card, choice1, choice2, choice3, state, handPos, bonus);
+int assertNotEqual(int expectedValue, int actualValue) {
+    return actualValue != expectedValue;
 }
 
-int initializeGameState()
-{
+int mockAdventure(int currentPlayer, struct gameState *state) {
+    int temphand[MAX_HAND];
+    int treasureCount = 0;
+    int cardDrawn;
+    int temphandCount = 0;
+
+    while(treasureCount < 2){
+        drawCard(currentPlayer, state);
+        cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] - 1];
+        if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold) {
+            treasureCount++;
+        }
+        else{
+            temphand[temphandCount]=cardDrawn;
+            state->handCount[currentPlayer]--;
+            temphandCount++;
+        }
+    }
+
+    while(temphandCount - 1 >= 0){
+        state->discard[currentPlayer][state->discardCount[currentPlayer]++] = temphand[temphandCount - 1];
+        temphandCount--;
+    }
+
+    return 0;
+}
+
+int testAdventurer() {
+    int card = adventurer;
+
     int randSeed = 30;
     srand(randSeed);
 
-    struct gameState G;
+    struct gameState expectedState, actualState;
+
     int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
                  sea_hag, tribute, smithy};
 
-    printf ("Starting test.\n");
+    initializeGame(2, k, randSeed, &actualState);
+    memcpy(&expectedState, &actualState, sizeof(struct gameState));
 
-    initializeGame(2, k, randSeed, &G);
+    int actualCardEffect = cardEffect(card, 0, 0, 0, &actualState, 0, 0);
+    int expectedCardEffect = mockAdventure(expectedState.whoseTurn, &expectedState);
+
+    if (assertNotEqual(expectedCardEffect, actualCardEffect)) {
+        return 1;
+    }
+
+    int expectedTreasureCount = 0;
+    int actualTreasureCount = 0;
+
+    int i;
+    for (i = 0; i < expectedState.handCount[expectedState.whoseTurn]; i++) {
+        if (expectedState.hand[expectedState.whoseTurn][i] == copper ||
+            expectedState.hand[expectedState.whoseTurn][i] == silver ||
+            expectedState.hand[expectedState.whoseTurn][i] == gold) {
+            expectedTreasureCount++;
+        }
+        if (actualState.hand[actualState.whoseTurn][i] == copper ||
+             actualState.hand[actualState.whoseTurn][i] == silver ||
+             actualState.hand[actualState.whoseTurn][i] == gold) {
+            actualTreasureCount++;
+        }
+    }
+
+    if (assertNotEqual(expectedTreasureCount, actualTreasureCount)) {
+        return 1;
+    }
+    return 0;
+}
+
+int main() {
+    if (testAdventurer()) {
+        printf("TEST FAILED: adventure card failed\n");
+        return 1;
+    }
+    printf("TEST SUCCESSFULLY COMPLETED\n");
+    return 0;
 }
