@@ -1,7 +1,7 @@
 //
 // Created by Kenny Ngo on 10/13/18.
 //
-#include <dominion.h>
+#include "../dominion.h"
 #include <printf.h>
 
 int testKingdomCards()

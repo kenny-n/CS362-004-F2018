@@ -1,10 +1,13 @@
 //
 // Created by Kenny Ngo on 10/13/18.
 //
-#include <dominion.h>
+#include "../dominion.h"
 #include <printf.h>
 #include <stdlib.h>
-#include "testUtils.h"
+
+int assertNotEqual(int expectedValue, int actualValue) {
+    return actualValue != expectedValue;
+}
 
 struct gameState* initMockGameState(int numPlayers, const int* kingdomCards) {
     struct gameState *state = newGame();

@@ -1,14 +1,16 @@
 //
 // Created by Kenny Ngo on 10/13/18.
 //
-#include <dominion.h>
+#include "../dominion.h"
 #include <printf.h>
 #include <stdlib.h>
-#include "testUtils.h"
+
+int assertNotEqual(int expectedValue, int actualValue) {
+    return actualValue != expectedValue;
+}
 
 struct gameState* initMockGameState(int numPlayers) {
     struct gameState *state = newGame();
-    int i, j;
 
     //set number of players
     state->numPlayers = numPlayers;
@@ -19,7 +21,6 @@ struct gameState* initMockGameState(int numPlayers) {
 }
 
 int testWhoseTurn(int numPlayers) {
-    int i, j;
     int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
                  sea_hag, tribute, smithy};
 

@@ -1,11 +1,14 @@
 //
 // Created by Kenny Ngo on 10/13/18.
 //
-#include <dominion.h>
+#include "../dominion.h"
+#include "../dominion_helpers.h"
 #include <printf.h>
 #include <stdlib.h>
-#include <dominion_helpers.h>
-#include "testUtils.h"
+
+int assertNotEqual(int expectedValue, int actualValue) {
+    return actualValue != expectedValue;
+}
 
 int testGetCost() {
     int failFlag = 0;
