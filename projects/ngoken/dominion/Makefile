@@ -43,6 +43,9 @@ cardtest2:
 cardtest3:
 	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c tst/cardtest3.c rngs.c -o cardtest3 -lm -g
 
+cardtest4:
+	gcc -fprofile-arcs -ftest-coverage -Wall -std=c99 dominion.c tst/cardtest4.c rngs.c -o cardtest4 -lm -g
+
 unittestresults.out: unittest1 unittest2 unittest3 unittest4
 	./unittest1 &> unittestresults.out
 	./unittest2 >> unittestresults.out
