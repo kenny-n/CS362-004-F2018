@@ -1,9 +1,7 @@
 //
 // Created by Kenny Ngo on 10/13/18.
 //
-#include "../dominion.h"
 #include "../dominion_helpers.h"
-#include "../rngs.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>

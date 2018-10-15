@@ -670,14 +670,13 @@ int playAdventurer(struct gameState *state, int currentPlayer) {
 
 int playSmithy(struct gameState *state, int currentPlayer, int handPos) {
   int i;
-  //+3 Cards
-  for (i = 0; i <= 3; i++)
-  {
+
+  for (i = 0; i <= 3; i++) {
     drawCard(currentPlayer, state);
   }
 
-  //discard card from hand
   discardCard(handPos, currentPlayer, state, 0);
+
   return 0;
 }
 
