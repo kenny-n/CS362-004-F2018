@@ -22,7 +22,7 @@ int testSmithy() {
 
     initializeGame(2, k, randSeed, &testState);
 
-    int expectedHandCount = testState.handCount[0] + 3;
+    int expectedHandCount = testState.handCount[0] + 3 - 1; // gain 3, use 1
 
     int cardEffectResult = cardEffect(card, 0, 0, 0, &testState, 0, 0);
 

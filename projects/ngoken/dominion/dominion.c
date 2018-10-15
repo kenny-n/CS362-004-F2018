@@ -671,7 +671,7 @@ int playAdventurer(struct gameState *state, int currentPlayer) {
 int playSmithy(struct gameState *state, int currentPlayer, int handPos) {
   int i;
 
-  for (i = 0; i <= 3; i++) {
+  for (i = 0; i < 3; i++) {
     drawCard(currentPlayer, state);
   }
 
@@ -1239,8 +1239,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   return -1;
 }
 
-int discardCard(int handPos, int currentPlayer, struct gameState *state, int trashFlag)
-{
+int discardCard(int handPos, int currentPlayer, struct gameState *state, int trashFlag) {
   
   //if card is not trashed, added to Played pile
   if (trashFlag < 1)
