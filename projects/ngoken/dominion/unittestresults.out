@@ -1,0 +1,76 @@
+TEST SUCCESSFULLY COMPLETED
+Starting test with 1 players.
+Starting test with 2 players.
+Starting test with 3 players.
+Starting test with 4 players.
+Starting test with 5 players.
+TEST SUCCESSFULLY COMPLETED
+TEST SUCCESSFULLY COMPLETED
+TEST SUCCESSFULLY COMPLETED
+TEST SUCCESSFULLY COMPLETED
+TEST SUCCESSFULLY COMPLETED
+TEST SUCCESSFULLY COMPLETED
+TEST SUCCESSFULLY COMPLETED
+File 'tst/unittest1.c'
+Lines executed:82.35% of 17
+Branches executed:100.00% of 8
+Taken at least once:75.00% of 8
+No calls
+tst/unittest1.c:creating 'unittest1.c.gcov'
+
+File 'tst/unittest2.c'
+Lines executed:81.30% of 123
+Branches executed:100.00% of 86
+Taken at least once:73.26% of 86
+No calls
+tst/unittest2.c:creating 'unittest2.c.gcov'
+
+File 'tst/unittest3.c'
+Lines executed:94.59% of 37
+Branches executed:100.00% of 58
+Taken at least once:50.00% of 58
+No calls
+tst/unittest3.c:creating 'unittest3.c.gcov'
+
+File 'tst/unittest4.c'
+Lines executed:88.24% of 17
+Branches executed:100.00% of 2
+Taken at least once:50.00% of 2
+No calls
+tst/unittest4.c:creating 'unittest4.c.gcov'
+
+File 'tst/cardtest1.c'
+Lines executed:84.00% of 50
+Branches executed:73.33% of 30
+Taken at least once:50.00% of 30
+No calls
+tst/cardtest1.c:creating 'cardtest1.c.gcov'
+
+File 'tst/cardtest2.c'
+Lines executed:84.21% of 19
+Branches executed:100.00% of 4
+Taken at least once:50.00% of 4
+No calls
+tst/cardtest2.c:creating 'cardtest2.c.gcov'
+
+File 'tst/cardtest3.c'
+Lines executed:82.61% of 23
+Branches executed:100.00% of 8
+Taken at least once:50.00% of 8
+No calls
+tst/cardtest3.c:creating 'cardtest3.c.gcov'
+
+File 'tst/cardtest4.c'
+Lines executed:85.71% of 14
+Branches executed:100.00% of 2
+Taken at least once:50.00% of 2
+No calls
+tst/cardtest4.c:creating 'cardtest4.c.gcov'
+
+File 'dominion.c'
+Lines executed:31.73% of 646
+Branches executed:32.37% of 417
+Taken at least once:25.18% of 417
+No calls
+dominion.c:creating 'dominion.c.gcov'
+
