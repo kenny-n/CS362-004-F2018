@@ -1,4 +1,4 @@
-CFLAGS= -Wall -fpic -coverage -lm -std=c99
+CFLAGS= -Wall -fpic -lm -std=c99
 
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
@@ -66,6 +66,27 @@ unittestresults: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 car
 	gcov -b cardtest4.c >> unittestresults.out
 	gcov -b dominion.c >> unittestresults.out
 
+randomtestadventurer:
+	gcc -fprofile-arcs -ftest-coverage dominion.c tst/randomtestadventurer.c rngs.c -o randomtestadventurer -g $(CFLAGS)
+
+randomtestcard1:
+	gcc -fprofile-arcs -ftest-coverage dominion.c tst/randomtestcard1.c rngs.c -o randomtestcard1 -g $(CFLAGS)
+
+randomtestcard2:
+	gcc -fprofile-arcs -ftest-coverage dominion.c tst/randomtestcard2.c rngs.c -o randomtestcard2 -g $(CFLAGS)
+
+randomtestresults: randomtestadventurer randomtestcard1 randomtestcard2
+	./randomtestadventurer &> randomtestadventurer.out
+	./randomtestcard1 >> randomtestcard1.out
+	./randomtestcard2 >> randomtestcard2.out
+
+	gcov -b -c randomtestadventurer.c >> randomtestadventurer.out
+	gcov -b -c randomtestcard1.c >> randomtestcard1.out
+	gcov -b -c randomtestcard2.c >> randomtestcard2.out
+	gcov -f -b -c dominion.c >> randomtestadventurer.out
+	gcov -f -b -c dominion.c >> randomtestcard1.out
+	gcov -f -b -c dominion.c >> randomtestcard2.out
+
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
@@ -80,4 +101,4 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -rf *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest* cardtest*
+	rm -rf *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest* cardtest* randomtest*
