@@ -1,0 +1,37 @@
+//
+// Created by Kenny Ngo on 10/13/18.
+//
+#include "../dominion_helpers.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+int assertNotEqual(int expectedValue, int actualValue) {
+    return actualValue != expectedValue;
+}
+
+int testGardens() {
+    int card = gardens;
+
+    int randSeed = 30;
+    srand(randSeed);
+
+    struct gameState testState;
+
+    int k[10] = {adventurer, gardens, embargo, village, minion, mine, cutpurse,
+                 sea_hag, tribute, smithy};
+
+    initializeGame(2, k, randSeed, &testState);
+
+    int cardEffectResult = cardEffect(card, 0, 0, 0, &testState, 0, 0);
+
+    return assertNotEqual(-1, cardEffectResult);
+}
+
+int main() {
+    if (testGardens()) {
+        printf("TEST FAILED: gardens card failed\n");
+        return 1;
+    }
+    printf("TEST SUCCESSFULLY COMPLETED\n");
+    return 0;
+}
